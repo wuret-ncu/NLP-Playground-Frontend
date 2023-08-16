@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+// import { Component } from 'react';
+import System from './components/system'
+import Chat from './components/chat.js';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div class="grid grid-rows-1-9 h-screen mx-5">
+      <div className="navbar">
+        <p className="btn btn-ghost normal-case text-xl">ChatGPTPlayGround</p>
+      </div>
+      <div className="grid grid-cols-5 gap-x-5 mb-5">
+        <div className="grid card col-span-2 p-4 border-solid border-2 overflow-auto">
+         <System/>
+        </div>
+        <div className="grid card col-span-2 p-4 border-solid border-2">
+          <Chat />
+        </div>
+        <div className="grid card col-span-1 p-4 border-solid border-2">
+          <Chat />
+        </div>
+      </div>
     </div>
   );
 }
