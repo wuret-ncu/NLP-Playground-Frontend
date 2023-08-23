@@ -1,7 +1,8 @@
-import { PaperAirplaneIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
-import { TbMessageChatbot } from 'react-icons/tb';
-import { AiOutlineClear } from 'react-icons/ai';
-import chatimage2 from '../bg-chat2.jpg';
+/* eslint-disable max-len */
+import {PaperAirplaneIcon, ArrowPathIcon} from '@heroicons/react/24/outline';
+import {TbMessageChatbot} from 'react-icons/tb';
+import {AiOutlineClear} from 'react-icons/ai';
+import chatimage2 from '../images/bg-chat2.jpg';
 
 function Chat() {
   return (
@@ -20,8 +21,8 @@ function Chat() {
         className="card form-control overflow-auto border-2 p-4 rounded-lg"
         style={{
           backgroundImage: `url(${chatimage2})`,
-          backgroundPosition: `center`,
-          backgroundSize: `cover`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
         }}
       >
         <div className="chat chat-start">
@@ -62,8 +63,8 @@ function Chat() {
             className="input input-bordered w-full h-14"
           />
           <div className="grid grid-rows-2">
-            <PaperAirplaneIcon className="btn btn-ghost btn-xs hover:bg-inherit hover:fill-black"></PaperAirplaneIcon>
-            <ArrowPathIcon className="btn btn-ghost btn-xs hover:bg-inherit hover:stroke-2"></ArrowPathIcon>
+            <PaperAirplaneIcon className="btn btn-ghost btn-xs hover:fill-black hover:stroke-white"></PaperAirplaneIcon>
+            <ArrowPathIcon className="btn btn-ghost btn-xs  hover:stroke-white"></ArrowPathIcon>
           </div>
         </div>
       </div>
