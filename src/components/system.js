@@ -5,38 +5,60 @@ import { BookmarkSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { MdOutlineAssistant } from 'react-icons/md';
 import { Context } from '../contexts/context.js';
 
-function System() {
-  const { message, setMessage, chatlog, setChatlog } = useContext(Context);
-  const storeAgentInfo = () => {
-    setChatlog([...chatlog, message]);
-  };
-  /*
-   */
-  const [messages, setMessages] = useState([]);
+export default function System() {
+  const { chatlog, setChatlog } = useContext(Context);
+  const [systemMessage, setSystemMessage] = useState({});
+  const [chatMessages, setChatMessages] = useState([]);
 
-  const handleAddMessages = () => {
-    setMessages([...messages, { userMessage: '', assistantMessage: '' }]);
+  // store chatMessages
+  const storeAgentInfo = async () => {
+    setChatlog([]);
+    const updatedChatlogs = [systemMessage];
+    chatMessages.forEach(async (item) => {
+      Object.entries(item).forEach(async ([key, value]) => {
+        const newMessage = { role: key, content: value };
+        updatedChatlogs.push(newMessage);
+      });
+    });
+    console.log(updatedChatlogs);
+    await setChatlog(updatedChatlogs);
+    console.log(chatlog);
   };
 
+  // add new message
+  const handleAddchatMessages = () => {
+    setChatMessages([...chatMessages, { user: '', assistant: '' }]);
+  };
+
+  // delete message
   const handleDeleteMessage = (index) => {
-    const updatedMessages = [...messages];
-    updatedMessages.splice(index, 1); // 删除指定的 message 组
-    setMessages(updatedMessages);
+    const updatedchatMessages = [...chatMessages];
+    updatedchatMessages.splice(index, 1);
+    setChatMessages(updatedchatMessages);
   };
 
+  // change systemmessage
+  const handleSystemMessageChange = (value) => {
+    setSystemMessage({ role: 'system', content: value });
+    console.log(systemMessage);
+  };
+
+  // change usermessage
   const handleUserMessageChange = (index, value) => {
-    const updatedMessages = [...messages];
-    updatedMessages[index].userMessage = value;
-    setMessages(updatedMessages);
-    setMessage(value);
+    const updatedchatMessages = [...chatMessages];
+    updatedchatMessages[index].user = value;
+    setChatMessages(updatedchatMessages);
+    console.log(chatMessages);
   };
 
+  // change assistantmessage
   const handleAssistantMessageChange = (index, value) => {
-    const updatedMessages = [...messages];
-    updatedMessages[index].assistantMessage = value;
-    setMessages(updatedMessages);
-    setMessage(value);
+    const updatedchatMessages = [...chatMessages];
+    updatedchatMessages[index].assistant = value;
+    setChatMessages(updatedchatMessages);
+    console.log(chatMessages);
   };
+
   return (
     <div className="grid grid-rows-2-23 h-85vh gap-1">
       <div className="grid grid-flow-col items-center justify-between">
@@ -44,11 +66,11 @@ function System() {
           <MdOutlineAssistant className="h-6 w-6 mx-1" />
           <p className="text-xl">小幫手設定</p>
         </div>
-        <button className="btn btn-outline mx-1">
-          <BookmarkSquareIcon
-            className="h-5 w-5 m-0"
-            onClick={storeAgentInfo}
-          />
+        <button
+          className="btn btn-outline mx-1"
+          onClick={() => storeAgentInfo()}
+        >
+          <BookmarkSquareIcon className="h-5 w-5 m-0" />
           儲存變更
         </button>
       </div>
@@ -59,8 +81,9 @@ function System() {
         <textarea
           className="textarea textarea-bordered h-24 mb-3"
           placeholder="系統訊息"
+          onChange={(e) => handleSystemMessageChange(e.target.value)}
         ></textarea>
-        {messages.map((message, index) => (
+        {chatMessages.map((message, index) => (
           <div className="form-control mt-3" key={index}>
             <div>
               <div className="grid grid-flow-col items-center justify-between">
@@ -75,7 +98,7 @@ function System() {
               <textarea
                 className="textarea textarea-bordered h-20 w-full"
                 placeholder="使用者訊息"
-                value={message.userMessage}
+                value={message.user}
                 onChange={(e) => handleUserMessageChange(index, e.target.value)}
               ></textarea>
               <label className="label">
@@ -84,7 +107,7 @@ function System() {
               <textarea
                 className="textarea textarea-bordered h-20 w-full"
                 placeholder="助理訊息"
-                value={message.assistantMessage}
+                value={message.assistant}
                 onChange={(e) =>
                   handleAssistantMessageChange(index, e.target.value)
                 }
@@ -92,7 +115,10 @@ function System() {
             </div>
           </div>
         ))}
-        <button className="btn btn-outline mt-3" onClick={handleAddMessages}>
+        <button
+          className="btn btn-outline mt-3"
+          onClick={() => handleAddchatMessages()}
+        >
           <TbMessagePlus className="h-4 w-4" />
           新增範例
         </button>
@@ -100,5 +126,3 @@ function System() {
     </div>
   );
 }
-
-export default System;
