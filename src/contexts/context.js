@@ -2,7 +2,7 @@ import { useState, createContext } from 'react';
 
 export const Context = createContext();
 export const ContextProvider = (props) => {
-  const [message, setMessage] = useState([]);
+  const [message, setMessage] = useState({});
   const [chatlog, setChatlog] = useState([]);
   const [parameters, setParameters] = useState({
     回應上限: { value: 0, min: 0, max: 16000 },
