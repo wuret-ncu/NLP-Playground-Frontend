@@ -3,6 +3,7 @@ import { Context } from '../contexts/context.js';
 import { useContext, useState } from 'react';
 import { TbInfoCircle } from 'react-icons/tb';
 
+// feature/config.js
 function Config() {
   const { parameters, setParameters } = useContext(Context);
   const [tempInput, setTempInput] = useState('');
