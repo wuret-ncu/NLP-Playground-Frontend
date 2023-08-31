@@ -3,55 +3,34 @@ import { TbMessageChatbot } from 'react-icons/tb';
 import { AiOutlineClear } from 'react-icons/ai';
 import chatimage2 from '../images/bg-chat2.jpg';
 import { useState } from 'react';
+import { useContext } from 'react';
+import { Context } from '../contexts/context.js';
 
-function Chat() {
-  const ChatLog = [
-    {
-      role: 'assistant',
-      name: 'ChatAI',
-      roleType: 'chat chat-start',
-      contentTime: new Date().getHours() + ':' + new Date().getMinutes(),
-      content: 'You were the Chosen One!',
-    }];
-
-  const [message, setMessage] = useState();
-  const [chatLogMsg, setChatLog] = useState(ChatLog);
+export default function Chat() {
+  const { chatlog, setChatlog } = useContext(Context);
+  const [message, setMessage] = useState('');
 
   // 更新ChatLog
-  const updateChatLog = (message) => {
-    const role = 'user';
-    const name = 'User';
-    const roleType = 'chat chat-end';
-    const insertTime = new Date().getHours() + ':' + new Date().getMinutes();
-    const content = message;
-    const newMessage = {
-      role,
-      name,
-      roleType,
-      insertTime,
-      content,
-    };
-    setChatLog([...chatLogMsg, newMessage]);
+  const updateChatLog = async (message) => {
+    await setChatlog([...chatlog, { role: 'user', content: message }]);
     setMessage('');
-  };
-
-  // 把ChatLog回復到初始狀態
-  const resetChatLog = (Agent) => {
-    setChatLog(Agent);
+    console.log(chatlog);
   };
 
   // 清空聊天室
-  const resetChatRoom = () => {
-    setChatLog([]);
-    resetChatLog(ChatLog);
+  const resetChatRoom = async () => {
+    await setChatlog([]);
+    console.log(chatlog);
   };
 
   // ChatLog刪除最後一筆對話紀錄
-  const popChatLog = () => {
-    const updateMsg = [...chatLogMsg];
+  const popChatLog = async () => {
+    const updateMsg = [...chatlog];
     updateMsg.pop();
-    setChatLog(updateMsg);
+    await setChatlog(updateMsg);
+    console.log(chatlog);
   };
+
 
   return (
     <div className='grid grid-rows-2-20-3 h-85vh gap-1'>
@@ -74,17 +53,17 @@ function Chat() {
         }}
       >
         <ul>
-          {chatLogMsg.map((item) => (
-            <div className={item.roleType}>
-              <div className='chat-image avatar'>
+          {chatlog.map((message, index) => (
+            <li key={index}>
+              <div className={message.role == 'system' ? 'chat chat-start' : 'chat chat-end'}>
+                <div className='chat-image avatar'>
+                </div>
+                <div className='chat-header'>
+                  {message.role}
+                </div>
+                <div className='chat-bubble bg-white'>{message.content}</div>
               </div>
-              <div className='chat-header'>
-                {item.name}
-                <time className='text-xs opacity-50'> {item.insertTime}</time>
-              </div>
-              <div className='chat-bubble bg-white'>{item.content}</div>
-              <div className='chat-footer opacity-50'>Delivered</div>
-            </div>
+            </li>
           ))}
         </ul>
       </div>
@@ -98,7 +77,7 @@ function Chat() {
             placeholder='使用者訊息'
             className='input input-bordered w-full h-14'
             value={message}
-            onChange={(event) => setMessage(event.target.value)}
+            onChange={(e) => setMessage(e.target.value)}
           />
           <div className='grid grid-rows-2'>
             <PaperAirplaneIcon className='btn btn-ghost btn-xs hover:bg-inherit hover:fill-black' onClick={() => updateChatLog(message)}></PaperAirplaneIcon>
@@ -109,5 +88,3 @@ function Chat() {
     </div>
   );
 }
-
-export default Chat;
