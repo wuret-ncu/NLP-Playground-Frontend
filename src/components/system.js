@@ -9,7 +9,6 @@ export default function System() {
   const { chatlog, setChatlog } = useContext(Context);
   const [systemMessage, setSystemMessage] = useState({});
   const [chatMessages, setChatMessages] = useState([]);
-  const { parameters } = useContext(Context);
 
   // store chatMessages
   const storeAgentInfo = async () => {
@@ -24,7 +23,6 @@ export default function System() {
     console.log(updatedChatlogs);
     await setChatlog(updatedChatlogs);
     console.log(chatlog);
-    console.log(parameters);
   };
 
   // add new message
