@@ -43,6 +43,7 @@ module.exports = {
           'success': '#36D399',
           'warning': '#FBBD23',
           'error': '#F87272',
+          '--btn-text-case': 'normal-case',
         },
       },
     ],
