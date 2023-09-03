@@ -17,7 +17,7 @@ function App() {
         }}
       >
         <div className='navbar'>
-          <p className='btn glass normal-case text-xl btn-disabled'>
+          <p className='btn glass text-xl btn-disabled'>
             ChatGPTPlayGround
           </p>
         </div>

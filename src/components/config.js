@@ -150,19 +150,19 @@ function Config() {
                         className="m-1 mr-1 grid grid-flow-col items-center"
                       >
                         <button
-                          className="btn w-auto btn-xs item-center justify-center rounded-sm hover:border-error no-animation"
+                          className="btn w-auto btn-xs item-center grid grid-flow-col justify-center rounded-sm hover:border-error no-animation overflow-hidden"
                         >
-                          <div className='text-xs'>{sequence}</div>
+                          <div className='text-xs overflow-ellipsis overflow-hidden'>{sequence}</div>
                           <TbX className="stroke-slate-400 hover:stroke-error" onClick={() => handleRemoveStopSequence(param, index, 'value')}></TbX>
                         </button>
                       </div>
                     ))}
                     <input
                       type="text"
-                      placeholder="輸入停止序列"
+                      placeholder="停止序列"
                       value={tempInput}
                       onChange={(e) => handleTempInput(param, e.target.value)}
-                      className="input my-1 px-1 border-white h-full"
+                      className="input my-1 px-1 border-white h-full flex-1 w-20"
                       style={{
                         fontSize: '14px',
                         outline: 'none',
