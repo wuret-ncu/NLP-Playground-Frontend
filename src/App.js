@@ -3,6 +3,7 @@ import System from './components/system.js';
 import Chat from './components/chat.js';
 import Config from './components/config.js';
 import chatimage from './images/bg-chat.jpg';
+import './App.css';
 
 function App() {
   return (

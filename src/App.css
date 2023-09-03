@@ -32,7 +32,43 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* App.css */
+.custom-tooltip-container {
+  /* position: relative; */
+  /* display: flex; */
+  /* justify-content: center; */
+  margin-left: 2px;
+}
+
+.custom-tooltip {
+  position: absolute;
+  left: 0%;
+  /* 將 .custom-tooltip 元素的左邊緣置於父元素中間 */
+  bottom: 80%;
+  /* transform: translateX(-39%); */
+  /* 往左移動元素自身寬度的一半 */
+  padding: 5px 10px;
+  /* margin-left: 10px; */
+  background-color: white;
+  border: 1px solid #0284c7;
+  color: black;
+  border-radius: 5px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  max-width: 267px;
+  width: max-content;
+  font-size: x-small;
+}
+
+
+.custom-tooltip-container:hover .custom-tooltip {
+  opacity: 1;
 }
