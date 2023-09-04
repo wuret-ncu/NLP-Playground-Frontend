@@ -7,6 +7,8 @@ import { Context } from '../contexts/context.js';
 
 export default function System() {
   const { chatlog, setChatlog } = useContext(Context);
+  const { messagelog } = useContext(Context);
+  const { setSystemlog } = useContext(Context);
   const [systemMessage, setSystemMessage] = useState({});
   const [chatMessages, setChatMessages] = useState([]);
 
@@ -21,7 +23,8 @@ export default function System() {
       });
     });
     console.log(updatedChatlogs);
-    await setChatlog(updatedChatlogs);
+    await setSystemlog(updatedChatlogs);
+    await setChatlog([...updatedChatlogs, ...messagelog]);
     console.log(chatlog);
   };
 
@@ -102,9 +105,10 @@ export default function System() {
           </label>
         </div>
         <textarea
-          className="textarea textarea-bordered h-24 mb-3"
+          className="textarea textarea-bordered h-24 mb-3 px-2"
           placeholder="系統訊息"
           onChange={(e) => handleSystemMessageChange(e.target.value)}
+          style={{ lineHeight: '1.5' }}
         ></textarea>
         <p className="font-bold">範例</p>
         <div className="text-xs">
@@ -127,9 +131,10 @@ export default function System() {
                   />
                 </div>
                 <textarea
-                  className="textarea textarea-bordered h-16 w-full"
+                  className="textarea textarea-bordered h-16 w-full px-2"
                   placeholder="使用者訊息"
                   value={message.user}
+                  style={{ lineHeight: '1.5' }}
                   onChange={(e) =>
                     handleUserMessageChange(index, e.target.value)
                   }
@@ -138,9 +143,10 @@ export default function System() {
                   <span className="label-text">助理</span>
                 </label>
                 <textarea
-                  className="textarea textarea-bordered h-16 w-full"
+                  className="textarea textarea-bordered h-16 w-full px-2"
                   placeholder="助理訊息"
                   value={message.assistant}
+                  style={{ lineHeight: '1.5' }}
                   onChange={(e) =>
                     handleAssistantMessageChange(index, e.target.value)
                   }

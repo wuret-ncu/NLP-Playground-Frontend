@@ -13,16 +13,17 @@ export async function callGPT(ChatLog, parameters) {
 
     const requestBody = ChatLog;
     const params = {
-      temperature: parameters.temperature,
-      max_tokens: parameters.max_tokens,
-      top_p: parameters.top_p,
+      temperature: parameters.temperature.value,
+      max_tokens: parameters.max_tokens.value,
+      top_p: parameters.top_p.value,
       purpose: 'none',
     };
 
     const response = await modelRequest.post(target, requestBody, { params });
-
+    // console.log(response);
     if (response.status === 200) {
-      const result = response.data;
+      const result = response.data.choices[0].message;
+      console.log(result);
       return result;
     } else {
       console.log('request error:', response.status);
