@@ -2,11 +2,13 @@ import { PaperAirplaneIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { TbMessageChatbot } from 'react-icons/tb';
 import { AiOutlineClear } from 'react-icons/ai';
 import chatimage2 from '../images/bg-chat2.jpg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { Context } from '../contexts/context.js';
+import { callGPT } from '../api/api.js';
 
 export default function Chat() {
+  const { parameters } = useContext(Context);
   const { chatlog, setChatlog } = useContext(Context);
   const [message, setMessage] = useState('');
 
@@ -16,6 +18,11 @@ export default function Chat() {
     setMessage('');
     console.log(chatlog);
   };
+  useEffect(async () => {
+    const gptResponse = await callGPT(chatlog, parameters);
+    console.log(gptResponse);
+    await setChatlog([...chatlog, await gptResponse]);
+  }, [chatlog]);
 
   // 清空聊天室
   const resetChatRoom = async () => {
@@ -54,8 +61,9 @@ export default function Chat() {
       >
         <ul>
           {chatlog.map((message, index) => (
+            message.role !== 'system' ? (
             <li key={index}>
-              <div className={message.role == 'system' ? 'chat chat-start' : 'chat chat-end'}>
+              <div className={ message.role === 'assistant' ? 'chat chat-start' : 'chat chat-end'}>
                 <div className='chat-image avatar'>
                 </div>
                 <div className='chat-header'>
@@ -63,7 +71,7 @@ export default function Chat() {
                 </div>
                 <div className='chat-bubble bg-white'>{message.content}</div>
               </div>
-            </li>
+            </li>):null
           ))}
         </ul>
       </div>
