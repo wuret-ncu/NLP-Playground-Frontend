@@ -3,7 +3,9 @@ import { useState, createContext } from 'react';
 export const Context = createContext();
 export const ContextProvider = (props) => {
   const [message, setMessage] = useState({});
+  const [systemlog, setSystemlog] = useState([]);
   const [chatlog, setChatlog] = useState([]);
+  const [messagelog, setMessagelog] = useState([]);
   const [parameters, setParameters] = useState({
     max_tokens: {
       zh: '回應上限',
@@ -78,6 +80,10 @@ export const ContextProvider = (props) => {
         setChatlog,
         parameters,
         setParameters,
+        messagelog,
+        setMessagelog,
+        systemlog,
+        setSystemlog,
       }}
     >
       {props.children}

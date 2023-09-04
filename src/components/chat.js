@@ -2,7 +2,7 @@ import { PaperAirplaneIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { TbMessageChatbot } from 'react-icons/tb';
 import { AiOutlineClear } from 'react-icons/ai';
 import chatimage2 from '../images/bg-chat2.jpg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useContext } from 'react';
 import { Context } from '../contexts/context.js';
 import { callGPT } from '../api/api.js';
@@ -10,32 +10,47 @@ import { callGPT } from '../api/api.js';
 export default function Chat() {
   const { parameters } = useContext(Context);
   const { chatlog, setChatlog } = useContext(Context);
+  const {messagelog, setMessagelog} = useContext(Context);
   const [message, setMessage] = useState('');
 
   // 更新ChatLog
-  const updateChatLog = async (message) => {
-    await setChatlog([...chatlog, { role: 'user', content: message }]);
-    setMessage('');
-    console.log(chatlog);
+  const updateChatLogUser = async (message) => {
+    const updatedChatlog = [...chatlog, { role: 'user', content: message }];
+    const updatedMessagelog = [...messagelog, { role: 'user', content: message }];
+    await setMessagelog(updatedMessagelog);
+    await setChatlog(updatedChatlog);
+    console.log(messagelog);
+    return [updatedChatlog, updatedMessagelog];
   };
-  useEffect(async () => {
-    const gptResponse = await callGPT(chatlog, parameters);
-    console.log(gptResponse);
-    await setChatlog([...chatlog, await gptResponse]);
-  }, [chatlog]);
+
+  const updateChatLog = async (message) => {
+    try {
+      const [updatedChatlog, updatedMessagelog] = await updateChatLogUser(message);
+      setMessage('');
+      console.log(updatedChatlog, updatedMessagelog);
+      const response = await callGPT(updatedChatlog, parameters);
+      console.log(response);
+      await setMessagelog([...updatedMessagelog, response]);
+      await setChatlog([...updatedChatlog, response]);
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
 
   // 清空聊天室
   const resetChatRoom = async () => {
-    await setChatlog([]);
-    console.log(chatlog);
+    await setMessagelog([]);
+    console.log(messagelog);
   };
 
   // ChatLog刪除最後一筆對話紀錄
   const popChatLog = async () => {
-    const updateMsg = [...chatlog];
+    const updateMsg = [...messagelog];
+    const updateChat = [...chatlog];
     updateMsg.pop();
-    await setChatlog(updateMsg);
-    console.log(chatlog);
+    await setMessagelog(updateMsg);
+    await setChatlog(updateChat);
+    console.log(messagelog);
   };
 
 
@@ -60,7 +75,7 @@ export default function Chat() {
         }}
       >
         <ul>
-          {chatlog.map((message, index) => (
+          {messagelog.map((message, index) => (
             message.role !== 'system' ? (
             <li key={index}>
               <div className={ message.role === 'assistant' ? 'chat chat-start' : 'chat chat-end'}>

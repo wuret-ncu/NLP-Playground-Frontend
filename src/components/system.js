@@ -7,6 +7,7 @@ import { Context } from '../contexts/context.js';
 
 export default function System() {
   const { chatlog, setChatlog } = useContext(Context);
+  const { messagelog } = useContext(Context);
   const [systemMessage, setSystemMessage] = useState({});
   const [chatMessages, setChatMessages] = useState([]);
 
@@ -21,7 +22,7 @@ export default function System() {
       });
     });
     console.log(updatedChatlogs);
-    await setChatlog(updatedChatlogs);
+    await setChatlog([...updatedChatlogs, ...messagelog]);
     console.log(chatlog);
   };
 
