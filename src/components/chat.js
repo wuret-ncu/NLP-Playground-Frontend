@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { PaperAirplaneIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { TbMessageChatbot } from 'react-icons/tb';
 import { AiOutlineClear } from 'react-icons/ai';
-import { PiRobot, PiUser} from 'react-icons/pi';
+import { PiRobot, PiUser } from 'react-icons/pi';
 import chatimage2 from '../images/bg-chat2.jpg';
 import { useEffect, useState } from 'react';
 import { useContext } from 'react';
@@ -12,7 +13,7 @@ export default function Chat() {
   const { parameters } = useContext(Context);
   const { chatlog, setChatlog } = useContext(Context);
   const { systemlog } = useContext(Context);
-  const {messagelog, setMessagelog} = useContext(Context);
+  const { messagelog, setMessagelog } = useContext(Context);
   const [message, setMessage] = useState('');
   const [reset, setReset] = useState(false);
 
@@ -61,12 +62,12 @@ export default function Chat() {
     setMessage(usermessage);
     setReset(true);
   };
-  useEffect(()=>{
+  useEffect(() => {
     if (reset == true) {
       updateChatLog(message);
       setReset(false);
     }
-  }, [reset] );
+  }, [reset]);
 
   return (
     <div className='grid grid-rows-2-19-4 h-85vh gap-1'>
@@ -75,10 +76,10 @@ export default function Chat() {
           <TbMessageChatbot className='h-6 w-6 mx-1' />
           <p className='text-xl'>聊天工作階段</p>
         </div>
-        <button className='btn btn-outline mx-1' onClick={resetChatRoom}>
+        {/* <button className='btn btn-outline mx-1' onClick={resetChatRoom}>
           <AiOutlineClear className='h-5 w-5' />
           清除聊天紀錄
-        </button>
+        </button> */}
       </div>
       <div
         className='card form-control overflow-auto border-2 p-4 rounded-lg'
@@ -91,17 +92,17 @@ export default function Chat() {
         <ul>
           {messagelog.map((message, index) => (
             message.role !== 'system' ? (
-            <li key={index}>
-              <div className={message.role === 'assistant' ? 'chat chat-start' : 'chat chat-end'}>
-                <div className='chat-image avatar'>
-                  {message.role === 'assistant' ? <PiRobot className='h-6 w-6' /> : <PiUser className='h-6 w-6' />}
-                </div>
-                {/* <div className='chat-header'>
+              <li key={index}>
+                <div className={message.role === 'assistant' ? 'chat chat-start' : 'chat chat-end'}>
+                  <div className='chat-image avatar'>
+                    {message.role === 'assistant' ? <PiRobot className='h-6 w-6' /> : <PiUser className='h-6 w-6' />}
+                  </div>
+                  {/* <div className='chat-header'>
                   {message.role}
                 </div> */}
-                <div className='chat-bubble bg-white text-sm items-center'>{message.content}</div>
-              </div>
-            </li>):null
+                  <div className='chat-bubble bg-white text-sm items-center'>{message.content}</div>
+                </div>
+              </li>) : null
           ))}
         </ul>
       </div>
@@ -119,7 +120,7 @@ export default function Chat() {
           />
           <div className='grid grid-rows-2 items-center'>
             <PaperAirplaneIcon className='btn btn-ghost btn-xs hover:bg-inherit hover:fill-black' onClick={() => updateChatLog(message)}></PaperAirplaneIcon>
-            <ArrowPathIcon className='btn btn-ghost btn-xs hover:bg-inherit hover:stroke-2' onClick={popChatLog}></ArrowPathIcon>
+            {/* <ArrowPathIcon className='btn btn-ghost btn-xs hover:bg-inherit hover:stroke-2' onClick={popChatLog}></ArrowPathIcon> */}
           </div>
         </div>
       </div>
