@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { Context } from '../contexts/context.js';
 import { callGPT } from '../api/api.js';
+import { pushData } from '../server/api.js';
 
 export default function Chat() {
   const { parameters } = useContext(Context);
@@ -34,6 +35,10 @@ export default function Chat() {
       console.log(updatedChatlog, updatedMessagelog);
       const response = await callGPT(updatedChatlog, parameters);
       console.log(response);
+      const pushMessage = await pushData(updatedChatlog[updatedChatlog.length-1]);
+      console.log(pushMessage);
+      const pushGTP = await pushData(response);
+      console.log(pushGTP);
       await setMessagelog([...updatedMessagelog, response]);
       await setChatlog([...updatedChatlog, response]);
     } catch (error) {
