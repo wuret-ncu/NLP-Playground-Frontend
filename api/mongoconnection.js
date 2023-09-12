@@ -7,9 +7,8 @@ const apiPort = 56000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
-
 const { MongoClient } = require('mongodb');
-const uri = 'mongodb://127.0.0.1:27017';
+const uri = 'mongodb://140.115.126.101:27020';
 const client = new MongoClient(uri);
 
 app.post('/UpdateChatlog', async (req, res) => {
@@ -34,10 +33,11 @@ app.post('/UpdateChatlog', async (req, res) => {
       );
       res.send(result);
     }
+    await client.close();
   } catch (err) {
     console.error(err);
   } finally {
-    await client.close();
+    
   }
 })
 
