@@ -75,7 +75,7 @@ export default function Chat() {
   }, [reset]);
 
   return (
-    <div className='grid grid-rows-2-19-4 h-85vh gap-1'>
+    <div className='grid grid-rows-2-19-4 h-85vh gap-1 font-bold'>
       <div className='grid grid-flow-col items-center justify-between'>
         <div className='grid grid-flow-col justify-start items-center'>
           <TbMessageChatbot className='h-6 w-6 mx-1' />
@@ -123,8 +123,8 @@ export default function Chat() {
             style={{ lineHeight: '1.5' }}
             onChange={(e) => setMessage(e.target.value)}
           />
-          <div className='grid grid-rows-2 items-center'>
-            <PaperAirplaneIcon className='btn btn-ghost btn-xs hover:bg-inherit hover:fill-black' onClick={() => updateChatLog(message)}></PaperAirplaneIcon>
+          <div className='grid grid-rows-1 items-center'>
+            <PaperAirplaneIcon className='btn btn-ghost btn-sm hover:bg-inherit hover:fill-black' onClick={() => updateChatLog(message)}></PaperAirplaneIcon>
             {/* <ArrowPathIcon className='btn btn-ghost btn-xs hover:bg-inherit hover:stroke-2' onClick={popChatLog}></ArrowPathIcon> */}
           </div>
         </div>

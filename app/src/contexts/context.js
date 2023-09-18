@@ -3,8 +3,20 @@ import { useState, createContext } from 'react';
 export const Context = createContext();
 export const ContextProvider = (props) => {
   const [message, setMessage] = useState({});
-  const [systemlog, setSystemlog] = useState([]);
-  const [chatlog, setChatlog] = useState([]);
+  const [systemlog, setSystemlog] = useState([
+    {
+      role: 'system',
+      content:
+        '你只知道關於「植物」的知識，每次回答使用者前，先判斷該問題是否為「植物」有關係，若是使用者提出與「植物」無關的內容，只回覆「超出範圍」即可，不回覆其他資訊。\n例如當使用者提出「昆蟲通常有幾隻腳?」，因為與「植物」無關，所以回覆「超出範圍」。\n',
+    },
+  ]);
+  const [chatlog, setChatlog] = useState([
+    {
+      role: 'system',
+      content:
+        '你只知道關於「植物」的知識，每次回答使用者前，先判斷該問題是否為「植物」有關係，若是使用者提出與「植物」無關的內容，只回覆「超出範圍」即可，不回覆其他資訊。\n例如當使用者提出「昆蟲通常有幾隻腳?」，因為與「植物」無關，所以回覆「超出範圍」。\n',
+    },
+  ]);
   const [messagelog, setMessagelog] = useState([]);
   const [parameters, setParameters] = useState({
     max_tokens: {
