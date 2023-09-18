@@ -117,7 +117,7 @@ export default function Chat() {
         </label>
         <div className='grid grid-cols-9-1 gap-3'>
           <textarea
-            placeholder='使用者訊息'
+            placeholder='輸入問題'
             className='input input-bordered w-full h-20 p-3 text-lg'
             value={message}
             style={{ lineHeight: '1.5' }}
