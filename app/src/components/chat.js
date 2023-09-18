@@ -79,7 +79,7 @@ export default function Chat() {
       <div className='grid grid-flow-col items-center justify-between'>
         <div className='grid grid-flow-col justify-start items-center'>
           <TbMessageChatbot className='h-6 w-6 mx-1' />
-          <p className='text-xl'>聊天工作階段</p>
+          <p className='text-xl'>聊天室</p>
         </div>
         {/* <button className='btn btn-outline mx-1' onClick={resetChatRoom}>
           <AiOutlineClear className='h-5 w-5' />
@@ -105,7 +105,7 @@ export default function Chat() {
                   {/* <div className='chat-header'>
                   {message.role}
                 </div> */}
-                  <div className='chat-bubble bg-white text-sm items-center'>{message.content}</div>
+                  <div className='chat-bubble bg-white text-lg items-center'>{message.content}</div>
                 </div>
               </li>) : null
           ))}
@@ -113,12 +113,12 @@ export default function Chat() {
       </div>
       <div className='form-control w-full mt-2'>
         <label className='label'>
-          <span className='label-text'>使用者訊息</span>
+          <span className='label-text text-lg'>使用者訊息</span>
         </label>
         <div className='grid grid-cols-9-1 gap-3'>
           <textarea
-            placeholder='使用者訊息'
-            className='input input-bordered w-full h-20 p-3 text-sm'
+            placeholder='輸入問題'
+            className='input input-bordered w-full h-20 p-3 text-lg'
             value={message}
             style={{ lineHeight: '1.5' }}
             onChange={(e) => setMessage(e.target.value)}
