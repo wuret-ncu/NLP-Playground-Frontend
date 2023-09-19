@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const modelRequest = axios.create({
-  baseURL: 'http://localhost:56000/',
+  baseURL: 'http://mongo_service:56000/',
 });
 
 export async function pushData(ChatLog) {
