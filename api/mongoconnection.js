@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
 const { MongoClient } = require('mongodb');
-const uri = 'mongodb://mongo_service:27020';
+const uri = 'mongodb://140.115.126.49:27020';
 const client = new MongoClient(uri);
 
 app.post('/UpdateChatlog', async (req, res) => {
