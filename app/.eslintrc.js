@@ -23,7 +23,7 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'quotes': ['error', 'single'],
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': 'off',
     'require-jsdoc': 'off',
     'object-curly-spacing': 'off',
     'react/react-in-jsx-scope': 'off',
