@@ -17,6 +17,13 @@ services:
       - 3000:3000
     networks:
       - agent_network
-
+      
+  mongo:
+    image: mongo
+    container_name: mongo_service
+    ports:
+      - 27020:27017
+    volumes:
+      - ./db/data:/data/db
 networks:
   agent_network:
