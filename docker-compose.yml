@@ -19,7 +19,7 @@ services:
       - agent_network
       
   mongo:
-    image: mongo
+    image: mongo:4.4.9
     container_name: mongo_service
     ports:
       - 27020:27017
