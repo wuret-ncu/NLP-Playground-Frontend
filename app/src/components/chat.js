@@ -75,7 +75,7 @@ export default function Chat() {
   }, [reset]);
 
   return (
-    <div className='grid grid-rows-2-19-4 h-85vh gap-1 font-bold'>
+    <div className='grid grid-rows-2-18-5 h-85vh gap-1 font-bold'>
       <div className='grid grid-flow-col items-center justify-between'>
         <div className='grid grid-flow-col justify-start items-center'>
           <TbMessageChatbot className='h-6 w-6 mx-1' />
@@ -111,14 +111,14 @@ export default function Chat() {
           ))}
         </ul>
       </div>
-      <div className='form-control w-full mt-2'>
+      <div className='form-control mt-2'>
         <label className='label'>
           <span className='label-text text-lg'>使用者訊息</span>
         </label>
         <div className='grid grid-cols-9-1 gap-3'>
           <textarea
             placeholder='輸入問題'
-            className='input input-bordered w-full h-20 p-3 text-lg'
+            className='input input-bordered h-full p-3 text-lg '
             value={message}
             style={{ lineHeight: '1.5' }}
             onChange={(e) => setMessage(e.target.value)}

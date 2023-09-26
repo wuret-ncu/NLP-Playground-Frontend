@@ -9,7 +9,7 @@ function App() {
   return (
     <ContextProvider>
       <div
-        className="grid grid-rows-2-23 h-screen px-5"
+        className="grid grid-rows-2-23 h-screen w-screen px-5"
         style={{
           backgroundImage: `url(${chatimage})`,
           backgroundPosition: 'center',
