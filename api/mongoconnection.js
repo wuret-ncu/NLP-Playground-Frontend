@@ -42,14 +42,14 @@ app.post('/UpdateChatlog', async (req, res) => {
 
     if (findData === null) {
       const result = await collection.insertOne(
-        { userId: 0, agentId: 0,
+        { userId: req.session.uuid, agentId: 0,
           chatlog: [req.body.ChatLog]}
       );
       res.send(result);
     }
     else {
       const result = await collection.updateOne(
-        { userId: 0, agentId: 0 },
+        { userId: req.session.uuid, agentId: 0 },
         { $push: { chatlog: req.body.ChatLog }}
       );
       res.send(result);
