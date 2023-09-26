@@ -8,7 +8,7 @@ const session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
 
 const { MongoClient } = require('mongodb');
-const uri = 'mongodb://140.115.126.49:27020';
+const uri = 'mongodb://mongochat.hsueh.tw:27020';
 const client = new MongoClient(uri);
 
 const crypto = require('crypto');
