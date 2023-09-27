@@ -1,1 +1,1 @@
-export const MODEL_ENDPOINT = 'https://model.hsueh.tw/callapi';
+export const MODEL_ENDPOINT = 'https://model.hsueh.tw/callapi/';
