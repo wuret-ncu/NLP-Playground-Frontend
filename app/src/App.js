@@ -31,7 +31,7 @@ function App() {
               嗨，歡迎來到 <span style={{ color: 'deepskyblue' }}>GPTChatRoom</span>
               ！這裡是一個特別為學生設計的聊天室，你可以跟我們的聊天機器人互動。如果你有任何有關
               <span style={{ color: 'limegreen'}}>「植物」</span>
-              的問題，別害羞，就在右邊的聊天室輸入吧！我們會很高興為你提供有趣又有用的答案。不論是關於植物的構造、功能，或者是它們的生長過程，只要你有疑問，都歡迎隨時問我們。
+              的問題，別害羞，就在右邊的聊天室輸入吧！我們會很高興為你提供有趣又有用的答案。不論是你學校課程學過和植物相關的單元內容或是任何關於植物你感興趣的問題，只要你有疑問，都歡迎隨時問我們。
             </p>
           </div>
           <div className="grid col-span-3 p-4 border-solid border-2 rounded-lg bg-white">
