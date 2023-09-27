@@ -18,6 +18,39 @@ export default function Chat() {
   const [message, setMessage] = useState('');
   const [reset, setReset] = useState(false);
 
+  const sendMessage = async (message) => {
+    try {
+      const eightDigitRandomNumber = Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
+      const updatedMessagelog = [...messagelog, { role: 'user', content: message }];
+      console.log(updatedMessagelog);
+      await setMessagelog([...updatedMessagelog]);
+      setMessage('');
+      fetch('http://rasa.hsueh.tw:5005/webhooks/rest/webhook/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sender: eightDigitRandomNumber,
+          message: message.replaceAll(' ', ''),
+        }),
+      })
+          .then((response) => response.json())
+          .then(async (data) => {
+            let paragraph = '';
+            data.forEach((sentence) => {
+              paragraph += sentence.text + '\n';
+            });
+            await setMessagelog([...updatedMessagelog, { role: 'assistant', content: paragraph }]);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
+
   // 更新ChatLog
   const updateChatLogUser = async (message) => {
     const updatedChatlog = [...chatlog, { role: 'user', content: message }];
@@ -35,7 +68,7 @@ export default function Chat() {
       console.log(updatedChatlog, updatedMessagelog);
       const response = await callGPT(updatedChatlog, parameters);
       console.log(response);
-      const pushMessage = await pushData(updatedChatlog[updatedChatlog.length-1]);
+      const pushMessage = await pushData(updatedChatlog[updatedChatlog.length - 1]);
       console.log(pushMessage);
       const pushGTP = await pushData(response);
       console.log(pushGTP);
@@ -124,7 +157,7 @@ export default function Chat() {
             onChange={(e) => setMessage(e.target.value)}
           />
           <div className='grid grid-rows-1 items-center'>
-            <PaperAirplaneIcon className='btn btn-ghost btn-sm hover:bg-inherit hover:fill-black' onClick={() => updateChatLog(message)}></PaperAirplaneIcon>
+            <PaperAirplaneIcon className='btn btn-ghost btn-sm hover:bg-inherit hover:fill-black' onClick={() => sendMessage(message)}></PaperAirplaneIcon>
             {/* <ArrowPathIcon className='btn btn-ghost btn-xs hover:bg-inherit hover:stroke-2' onClick={popChatLog}></ArrowPathIcon> */}
           </div>
         </div>
