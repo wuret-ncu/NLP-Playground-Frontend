@@ -17,6 +17,7 @@ export default function Chat() {
   const { messagelog, setMessagelog } = useContext(Context);
   const [message, setMessage] = useState('');
   const [reset, setReset] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(false);
 
   // 更新ChatLog
   const updateChatLogUser = async (message) => {
@@ -26,6 +27,21 @@ export default function Chat() {
     await setChatlog(updatedChatlog);
     console.log(messagelog);
     return [updatedChatlog, updatedMessagelog];
+  };
+
+  const handleSendMessage = () => {
+    if (message && message.trim() !== '') {
+      setAlertMessage(false);
+      updateChatLog(message);
+    } else {
+      setAlertMessage(true);
+    }
+  };
+
+  const handleKeyUp = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
   };
 
   const updateChatLog = async (message) => {
@@ -94,6 +110,14 @@ export default function Chat() {
           backgroundSize: 'cover',
         }}
       >
+        {alertMessage && (
+          <div className="alert mb-3 bg-blue-50 border-none">
+            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <span>請輸入內容</span>
+          </div>
+        )}
         <ul>
           {messagelog.map((message, index) => (
             message.role !== 'system' ? (
@@ -116,15 +140,16 @@ export default function Chat() {
           <span className='label-text text-lg'>使用者訊息</span>
         </label>
         <div className='grid grid-cols-9-1 gap-3'>
-          <textarea
+          <input
             placeholder='輸入問題'
             className='input input-bordered h-full p-3 text-lg '
             value={message}
             style={{ lineHeight: '1.5' }}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyUp={handleKeyUp}
           />
           <div className='grid grid-rows-1 items-center'>
-            <PaperAirplaneIcon className='btn btn-ghost btn-sm hover:bg-inherit hover:fill-black' onClick={() => updateChatLog(message)}></PaperAirplaneIcon>
+            <PaperAirplaneIcon className='btn btn-ghost btn-sm hover:bg-inherit hover:fill-black' onClick={handleSendMessage}></PaperAirplaneIcon>
             {/* <ArrowPathIcon className='btn btn-ghost btn-xs hover:bg-inherit hover:stroke-2' onClick={popChatLog}></ArrowPathIcon> */}
           </div>
         </div>
