@@ -14,16 +14,8 @@ services:
       context: ./app
       dockerfile: Dockerfile
     ports:
-      - 80:3000
+      - 81:3000
     networks:
       - agent_network
-      
-  mongo:
-    image: mongo:4.4.9
-    container_name: mongo_service
-    ports:
-      - 27020:27017
-    volumes:
-      - ./db/data:/data/db
 networks:
   agent_network:
