@@ -12,13 +12,18 @@ export async function callGPT(ChatLog, parameters) {
     const target = '/chatGPT';
 
     const requestBody = ChatLog;
+    const stopSequences = parameters.stop_sequences.value.length === 0 ? 'None': parameters.stop_sequences.value.join('-');
     const params = {
       temperature: parameters.temperature.value,
       max_tokens: parameters.max_tokens.value,
       top_p: parameters.top_p.value,
-      purpose: 'none',
+      frequency_penalty: parameters.frequency_penalty.value,
+      presence_penalty: parameters.presence_penalty.value,
+      stop: stopSequences,
+      past_messages: parameters.past_messages.value,
+      purpose: 'None',
     };
-
+    
     const response = await modelRequest.post(target, requestBody, { params });
     // console.log(response);
     if (response.status === 200) {

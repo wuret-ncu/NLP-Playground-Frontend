@@ -45,7 +45,7 @@ export const ContextProvider = (props) => {
     },
     stop_sequences: {
       zh: '停止序列',
-      value: [],
+      value: 0,
       min: 0,
       max: 4,
       tooltip:
@@ -60,7 +60,7 @@ export const ContextProvider = (props) => {
       tooltip:
         '根據目前文字中出現的頻率，減少按比例重複權杖的機會。這會降低回應中重複完全相同文字的可能性。',
     },
-    precense_penalty: {
+    presence_penalty: {
       zh: '目前狀態罰則',
       value: 0.0,
       min: 0,
