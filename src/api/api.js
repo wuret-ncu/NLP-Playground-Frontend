@@ -23,7 +23,7 @@ export async function callGPT(ChatLog, parameters) {
       past_messages: parameters.past_messages.value,
       purpose: 'None',
     };
-    
+
     const response = await modelRequest.post(target, requestBody, { params });
     // console.log(response);
     if (response.status === 200) {
