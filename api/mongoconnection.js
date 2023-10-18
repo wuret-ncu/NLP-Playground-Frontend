@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
@@ -27,6 +28,28 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
+
+// 轉送 request 到 api上
+app.post('/forwardRequest', async (req, res) => {
+  // try {
+    const model_endpoint = "http://localhost/callapi/chatGPT"; // model endpoint
+
+    const { temperature, max_tokens, top_p, purpose } = req.query;
+    const bodyData = req.body;
+
+    // send request
+    const response = await axios.post(model_endpoint, bodyData, {
+      params: { temperature, max_tokens, top_p, purpose },
+    });
+
+    // get response
+    res.json(response.data);
+
+  // } catch (error) {
+  //   // handle error event.
+  //   res.status(500).json({ error: 'forward request error.' });
+  // }
+});
 
 
 app.post('/UpdateChatlog', async (req, res) => {

@@ -9,7 +9,7 @@ const modelRequest = axios.create({
 // CallGPT
 export async function callGPT(ChatLog, parameters) {
   try {
-    const target = '/chatGPT';
+    const target = '/forwardRequest';
 
     const requestBody = ChatLog;
     const params = {
