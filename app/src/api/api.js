@@ -21,7 +21,7 @@ export async function callGPT(ChatLog, parameters) {
       presence_penalty: parameters.presence_penalty.value,
       stop: stopSequences,
       past_messages: parameters.past_messages.value,
-      purpose: 'None',
+      purpose: 'playground',
     };
 
     const response = await modelRequest.post(target, requestBody, { params });
