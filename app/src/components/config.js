@@ -179,7 +179,7 @@ function Config() {
               ),
           )}
           {/* 目前 tokens 計數 */}
-          <div className="label-text grid mt-10">
+          <div className="label-text grid">
             目前 tokens 計數
             <progress
               className="progress h-3 my-1"
