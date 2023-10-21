@@ -32,14 +32,14 @@ app.use(bodyParser.json());
 // 轉送 request 到 api上
 app.post('/forwardRequest', async (req, res) => {
   // try {
-    const model_endpoint = "http://localhost/callapi/chatGPT"; // model endpoint
+    const model_endpoint = "https://model.hsueh.tw/callapi/chatGPT"; // model endpoint
 
-    const { temperature, max_tokens, top_p, purpose } = req.query;
+    // const { temperature, max_tokens, top_p, purpose, frequency_penalty, presence_penalty, stop, past_messages } = req.query;
     const bodyData = req.body;
 
     // send request
     const response = await axios.post(model_endpoint, bodyData, {
-      params: { temperature, max_tokens, top_p, purpose },
+      params: req.query,
     });
 
     // get response
