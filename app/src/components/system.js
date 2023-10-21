@@ -62,6 +62,23 @@ export default function System() {
     console.log(chatMessages);
   };
 
+  // TRIPO Model
+  const saveModalContent = () => {
+    const inputIds = ['role', 'task', 'parameters', 'output', 'iteration'];
+
+    if (inputIds.every((id) => document.querySelector(`#${id}`).value.trim() === '')) {
+      document.getElementById('my_modal_1').close();
+    }
+
+    const combinedContent = inputIds.map((id) => document.querySelector(`#${id}`).value).filter((value) => value.trim() !== '').join('，');
+
+    document.querySelector('#systemmessage').value = combinedContent;
+
+    inputIds.forEach((id) => (document.querySelector(`#${id}`).value = ''));
+
+    document.getElementById('my_modal_1').close();
+  };
+
   return (
     <div className="grid grid-rows-2-23 h-85vh gap-1 ">
       <div className="grid grid-flow-col items-center justify-between">
@@ -79,7 +96,7 @@ export default function System() {
       </div>
       <div className="card form-control border-2 p-4 rounded-lg overflow-visible">
         <div>
-          <p className="font-bold">指定聊天應如何進行</p>
+          <p className="font-bold">指定對話應如何進行</p>
           <div className="text-xs">
             在下面開始編寫您自己的系統消息。想要一些提示嗎？
             <a
@@ -92,7 +109,7 @@ export default function System() {
             </a>
           </div>
         </div>
-        <div>
+        <div className='flex justify-between mt-2'>
           <label className="label justify-start items-center relative">
             <span className="label-text">系統訊息</span>
             <div className="custom-tooltip-container over">
@@ -103,8 +120,114 @@ export default function System() {
               </span>
             </div>
           </label>
+          <button className="btn btn-sm" onClick={()=>document.getElementById('my_modal_1').showModal()}>Prompt 框架</button>
+          <dialog id="my_modal_1" className="modal">
+            <div className="modal-box w-4/12 max-w-3xl p-9 grid justify-items-center">
+              <div className='grid justify-items-center'>
+                <div className="font-semibold text-2xl flex mb-3">TRIPO Model</div>
+              </div>
+              <div className="form-control w-full max-w-sm">
+                <label className="label justify-start items-center relative">
+                  <span className="label-text font-medium me-2">Task 任務</span>
+                  <div className="custom-tooltip-container over">
+                    <TbInfoCircle className="stroke-slate-400 hover:stroke-sky-600"></TbInfoCircle>
+                    <span className="custom-tooltip">
+                      具體說明Prompt的情境與脈絡。
+                      <br/>例如 : 幫我設計一份rubrics以讓學生展現他們對人體骨骼的理解，包含合作、上台發表、問題解決及概念理解這四方面。
+                    </span>
+                  </div>
+                </label>
+                {/* <input
+                  type="text"
+                  placeholder="Type here"
+                  className="input input-bordered w-full max-w-sm"
+                /> */}
+                <textarea id="task" placeholder="Task" className="textarea textarea-bordered textarea-xs w-full max-w-sm"></textarea>
+              </div>
+              <div className="form-control w-full max-w-sm">
+                <label className="label justify-start items-center relative">
+                  <span className="label-text font-medium me-2">Role 角色</span>
+                  <div className="custom-tooltip-container over">
+                    <TbInfoCircle className="stroke-slate-400 hover:stroke-sky-600"></TbInfoCircle>
+                    <span className="custom-tooltip">
+                      ChatGPT所扮演的角色。
+                      <br/>例如 : 老師、律師或Linux kernel等。
+                    </span>
+                  </div>
+                </label>
+                {/* <input
+                  type="text"
+                  placeholder="Type here"
+                  className="input input-bordered w-full max-w-sm"
+                /> */}
+                <textarea id="role" placeholder="Role" className="textarea textarea-bordered textarea-xs w-full max-w-sm"></textarea>
+              </div>
+              <div className="form-control w-full max-w-sm">
+                <label className="label justify-start items-center relative">
+                  <span className="label-text font-medium me-2">Iteration 迭代</span>
+                  <div className="custom-tooltip-container over">
+                    <TbInfoCircle className="stroke-slate-400 hover:stroke-sky-600"></TbInfoCircle>
+                    <span className="custom-tooltip">
+                      ChatGPT是對話式的AI，可以透過追問與選擇會產出更好的答案。
+                      <br/>Iteration是指Chain of Thoughts的對話方式，逐步提供ChatGPT更多的資訊告訴他你喜歡甚麼不喜歡甚麼，
+                      或是換個方式說明等，透過不斷迭代的方式得到更好的答案。
+                    </span>
+                  </div>
+                </label>
+                {/* <input
+                  type="text"
+                  placeholder="Type here"
+                  className="input input-bordered w-full max-w-sm"
+                /> */}
+                <textarea id="iteration" placeholder="Iteration" className="textarea textarea-bordered textarea-xs w-full max-w-sm"></textarea>
+              </div>
+              <div className="form-control w-full max-w-sm">
+                <label className="label justify-start items-center relative">
+                  <span className="label-text font-medium me-2">Parameters 參數</span>
+                  <div className="custom-tooltip-container over">
+                    <TbInfoCircle className="stroke-slate-400 hover:stroke-sky-600"></TbInfoCircle>
+                    <span className="custom-tooltip">
+                      詳細及明確的參數可以讓ChatGPT生成更好的答案，參數是指你希望ChatGPT用甚麼模型或理論生成答案。
+                      <br/>例如 : 根據5es model生成教案等。
+                    </span>
+                  </div>
+                </label>
+                {/* <input
+                  type="text"
+                  placeholder="Type here"
+                  className="input input-bordered w-full max-w-sm"
+                /> */}
+                <textarea id="parameters" placeholder="Parameters" className="textarea textarea-bordered textarea-xs w-full max-w-sm"></textarea>
+              </div>
+              <div className="form-control w-full max-w-sm">
+                <label className="label justify-start items-center relative">
+                  <span className="label-text font-medium me-2">Output 輸出</span>
+                  <div className="custom-tooltip-container over">
+                    <TbInfoCircle className="stroke-slate-400 hover:stroke-sky-600"></TbInfoCircle>
+                    <span className="custom-tooltip">
+                      明確表達輸出的目標、對象及格式。
+                      <br/>例如 : 對象是5年級學生，並請以表格呈現，第一欄是英文單字，第二欄是英文單字的中文解釋，第三欄是該英文單字的例句。
+                    </span>
+                  </div>
+                </label>
+                {/* <input
+                  type="text"
+                  placeholder="Type here"
+                  className="input input-bordered w-full max-w-sm"
+                /> */}
+                <textarea id="output" placeholder="Output" className="textarea textarea-bordered textarea-xs w-full max-w-sm"></textarea>
+              </div>
+              <div className='grid justify-items-center w-full max-w-sm'>
+                <button className=" items-center btn bg-blue-500 text-white mt-8 w-full max-w-sm" onClick={() => saveModalContent()}>儲存</button>
+              </div>
+            </div>
+            <form method="dialog" className="modal-backdrop">
+              <button>close</button>
+            </form>
+          </dialog>
         </div>
         <textarea
+          id="systemmessage"
           className="textarea textarea-bordered h-24 mb-3 px-2"
           placeholder="系統訊息"
           onChange={(e) => handleSystemMessageChange(e.target.value)}
