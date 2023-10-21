@@ -16,7 +16,11 @@ export async function callGPT(ChatLog, parameters) {
       temperature: parameters.temperature.value,
       max_tokens: parameters.max_tokens.value,
       top_p: parameters.top_p.value,
-      purpose: 'none',
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      stop: 'None',
+      past_messages: 10,
+      purpose: 'None',
     };
 
     const response = await modelRequest.post(target, requestBody, { params });
