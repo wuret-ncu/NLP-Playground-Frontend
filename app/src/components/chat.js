@@ -89,11 +89,11 @@ export default function Chat() {
       <div className='grid grid-flow-col items-center justify-between'>
         <div className='grid grid-flow-col justify-start items-center'>
           <TbMessageChatbot className='h-6 w-6 mx-1' />
-          <p className='text-xl'>聊天工作階段</p>
+          <p className='text-xl'>對話工作階段</p>
         </div>
         <button className='btn btn-outline mx-1' onClick={resetChatRoom}>
           <AiOutlineClear className='h-5 w-5' />
-          清除聊天紀錄
+          清除對話紀錄
         </button>
       </div>
       <div
